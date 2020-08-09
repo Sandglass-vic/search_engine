@@ -1,10 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Super Engine - register</title>
+    <link rel="icon" type="image/png" href="../../static/index/images/logo_transparent.png"/>
+    <!-- Bootstrap CSS -->
+    <link href="../../static/index/styles/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../../static/index/styles/theme.css" rel="stylesheet" type="text/css">
 </head>
-<body>
 
+<body>
+    <main>
+    <nav class="navbar navbar-expand navbar-light sticky-top">
+        <a class="navbar-brand" href="{% url 'index:index' %}">
+            <img src="../../static/index/images/logo_transparent.png" width="40" height="40" alt="" loading="lazy">
+        </a>
+    </nav>
+    <form id="info-box" style="margin-top: 20px" action="{% url 'index:register' %}" method="post">
+        {% csrf_token %}
+        <p>Sign up and start using now!</p>
+        <input class="userinfo" name="username" placeholder="Name: ">
+        <div class="info-row">
+            <span>I'm a</span>
+            <span><input class="radio" type=radio name="gender" value="boy">boy</span>
+            <span><input class="radio" type=radio name="gender" value="girl">girl</span>
+        </div>
+        <input class="userinfo" type="password" name="password" placeholder="Password: ">
+        <input class="userinfo" type="password" name="password_repeated" placeholder="Enter your password again: ">
+        <div class="info-row">
+            <a href="{% url 'index:login' %}">Log in here </a>
+            <input class="submit" type="submit" value="Sign up">
+        </div>
+        {% if message %}
+    <div class="alert alert-danger myalert" role="alert">
+       {{ message }}
+    </div>
+    {% endif %}
+    </form>
+    </main>
+
+    <footer>
+        <hr/>
+        <p>2020 © Victor | All rights reserved </p>
+    </footer>
 </body>
+
 </html>

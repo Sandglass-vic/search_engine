@@ -1,11 +1,59 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from . models import *
+import hashlib
+
+
+# ENCODE
+def hash_code(s, salt='mysite'):
+    h = hashlib.sha256()
+    s += salt
+    h.update(s.encode())
+    return h.hexdigest()
 
 
 def index(request):
-    return render(request,'index/index.html')
+    logged = request.session.get('is_login', None)
+    gender = request.session.get('gender', None)
+    return render(request, 'index/index.html', {"logged": logged, "gender": gender})
 
 
 def login(request):
+    message = ""
+    if request.method == "GET":
+        if request.session.get('is_login', None):
+            return HttpResponseRedirect(reverse('index:index'))
+        else:
+            return render(request, 'index/login.html', {"message": message})
+    elif request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = User.objects.filter(username=username, password=hash_code(password))
+        if user:
+            request.session['is_login'] = True
+            request.session['gender'] = user.gender
+            return HttpResponseRedirect(reverse('index:index'))
+        else:
+            message = "Invalid password !"
+            return render(request, 'index/login.html', {"message": message})
 
 
 def register(request):
+    if request.method == "GET":
+        return render(request, 'index/register.html', {"message":""})
+    else:
+        username = request.POST['username']
+        user_set = User.objects.filter(username=username)
+        if user_set:
+            message = "This name already exists."
+            return render(request, 'index/register.html', {"message": message})
+        else:
+            password = request.POST['password']
+            password_repeated = request.POST['password_repeated']
+            if password != password_repeated:
+                message = "The two passwords are not the same! "
+                return render(request, 'index/register.html', {"message": message})
+            gender = request.POST['gender']
+            User.objects.create(username=username, password=hash_code(password), gender=gender)
+            return HttpResponseRedirect(reverse('index:login'))

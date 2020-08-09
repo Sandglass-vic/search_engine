@@ -1,10 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>SAST Super Engine</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Super Engine</title>
+    <link rel="icon" type="image/png" href="../../static/index/images/logo_transparent.png"/>
+    <!-- Bootstrap CSS -->
+    <link href="../../static/index/styles/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../../static/index/styles/theme.css" rel="stylesheet" type="text/css">
 </head>
-<body>
 
+<body>
+    <main>
+    <nav class="navbar navbar-expand navbar-light sticky-top">
+        <a class="navbar-brand" href="{% url 'index:index' %}">
+            <img src="../../static/index/images/logo_transparent.png" width="40" height="40" alt="" loading="lazy">
+        </a>
+
+        <span id="navbar-user">
+            {% if not logged %}
+            <a href="{% url 'index:login' %}">
+                <img id='navbar-user-profile' src="../../static/index/images/logo_transparent.png">
+            </a>
+            {% elif gender == "boy" %}
+            <a href="{% url 'index:index' %}">
+                <img id='navbar-user-profile' src="../../static/index/images/boy.png">
+            </a>
+            {% else %}
+            <a href="{% url 'index:index' %}">
+                <img id='navbar-user-profile' src="../../static/index/images/girl.png">
+            </a>
+            {% endif %}
+        </span>
+    </nav>
+    <div id="search_area">
+        <img src="../../static/index/images/logo_transparent.png">
+        <form action="{% url 'search:search' %}" method="get">
+            <input id="search-bar" name="keyword" placeholder="Welcome to Super Engine ! ">
+        </form>
+    </div>
+    </main>
+
+    <footer>
+        <hr/>
+        <p>2020 © Victor | All rights reserved </p>
+    </footer>
 </body>
+
 </html>
