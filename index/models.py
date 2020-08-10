@@ -9,3 +9,13 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
 
+
+class News(models.Model):
+    title = models.CharField(max_length=255)
+    source = models.CharField(max_length=255)
+    time = models.CharField(max_length=255)
+    content = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.title
+

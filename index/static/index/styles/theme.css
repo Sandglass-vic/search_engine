@@ -7,6 +7,7 @@ main{
 }
 
 footer {
+    position: relative;
     bottom: 0px;
     width: 100%;
     height: 80px;
@@ -38,6 +39,14 @@ footer hr{
     border-color: #dee2e6;
     border-width: 1px;
     border-radius: 15px;
+}
+
+#logout{
+    margin-right: 20px;
+    color: #cbd3da;
+    text-decoration: None;
+    text-align: center;
+    height: 40px;
 }
 
 #search_area{
@@ -157,3 +166,85 @@ footer hr{
     width: 50vh;
 }
 
+#navbar-search-bar{
+    width: 20vw;
+    max-width: 280px;
+    min-width: 250px;
+    height: 35px;
+    border-radius: 10px;
+    border-color: #dee2e6;
+    background-color: #cbd3da;
+    outline: medium;
+    padding: 0 2em 0.1em 2em;
+    margin-left: 15px;
+    font-size: 16px;
+}
+
+#results-area{
+    height: auto;
+    margin-top: 30px;
+}
+
+.news-brief{
+    border-size: 1px;
+    border-radius: 10px;
+    border-color: #ffffff;
+    background-color: #0f6674;
+    margin: 20px calc(50vw - 500px);
+    width: 1000px;
+    height: 150px;
+}
+
+.news-brief .news-img{
+    display: block;
+    float: left;
+    margin: 20px;
+}
+
+.news-brief .news-img img{
+    width: 100px;
+    height: 100px;
+}
+
+.news-brief .news-text{
+    display: block;
+    float: left;
+    width: 800px;
+}
+
+.news-brief .news-title{
+    display: block;
+    margin: 10px 0;
+    text-decoration: None;
+    font-size: 28px;
+    color: #b1dfbb;
+    height: 40px;
+}
+
+.news-brief .news-content{
+    display: block;
+    margin: 5px 0;
+    color: #cbd3da;
+    height: 80px;
+    overflow: hidden;
+}
+
+.news-detail{
+    margin-top: 5vh;
+    margin-left: 15vw;
+    margin-right: 15vw;
+    width: auto;
+}
+
+.news-detail .news-title{
+    text-align: center;
+    font-size: 32px;
+    color: #b1dfbb;
+}
+
+.news-detail .news-content{
+    text-indent: 2em;
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+    color: #cbd3da;
+}

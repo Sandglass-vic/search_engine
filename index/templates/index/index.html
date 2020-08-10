@@ -20,23 +20,26 @@
 
         <span id="navbar-user">
             {% if not logged %}
-            <a href="{% url 'index:login' %}">
-                <img id='navbar-user-profile' src="../../static/index/images/logo_transparent.png">
-            </a>
-            {% elif gender == "boy" %}
-            <a href="{% url 'index:index' %}">
-                <img id='navbar-user-profile' src="../../static/index/images/boy.png">
-            </a>
+                <a href="{% url 'index:login' %}">
+                    <img id='navbar-user-profile' src="../../static/index/images/logo_transparent.png">
+                </a>
             {% else %}
-            <a href="{% url 'index:index' %}">
-                <img id='navbar-user-profile' src="../../static/index/images/girl.png">
-            </a>
+                <a id="logout" href="{% url 'index:logout' %}">Log out</a>
+                {% if gender == "boy" %}
+                    <a href="{% url 'index:index' %}">
+                        <img id='navbar-user-profile' src="../../static/index/images/boy.png">
+                    </a>
+                {% else %}
+                    <a href="{% url 'index:index' %}">
+                        <img id='navbar-user-profile' src="../../static/index/images/girl.png">
+                    </a>
+                {% endif %}
             {% endif %}
         </span>
     </nav>
     <div id="search_area">
         <img src="../../static/index/images/logo_transparent.png">
-        <form action="{% url 'search:search' %}" method="get">
+        <form action="{% url 'index:search_view' %}" method="get">
             <input id="search-bar" name="keyword" placeholder="Welcome to Super Engine ! ">
         </form>
     </div>

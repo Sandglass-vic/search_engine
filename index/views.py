@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.db.models import Q
 from . models import *
 import hashlib
 
@@ -32,11 +33,16 @@ def login(request):
         user = User.objects.filter(username=username, password=hash_code(password))
         if user:
             request.session['is_login'] = True
-            request.session['gender'] = user.gender
+            request.session['gender'] = user[0].gender
             return HttpResponseRedirect(reverse('index:index'))
         else:
             message = "Invalid password !"
             return render(request, 'index/login.html', {"message": message})
+
+
+def logout(request):
+    request.session.flush()
+    return HttpResponseRedirect(reverse('index:index'))
 
 
 def register(request):
@@ -57,3 +63,22 @@ def register(request):
             gender = request.POST['gender']
             User.objects.create(username=username, password=hash_code(password), gender=gender)
             return HttpResponseRedirect(reverse('index:login'))
+
+
+def search_view(request):
+    if not request.session.get('is_login', None):
+        return HttpResponseRedirect(reverse('index:login'))
+    keyword = request.GET['keyword']
+    return HttpResponseRedirect(reverse('index:search', args=(keyword,)))
+
+
+def search(request, keyword):
+    gender = request.session.get('gender')
+    news_set = News.objects.filter(Q(title__contains=keyword) | Q(content__contains=keyword))
+    return render(request, "index/search.html", {"gender": gender, 'news_set': news_set})
+
+
+def detail(request, news_id):
+    gender = request.session.get('gender')
+    news = News.objects.get(id=news_id)
+    return render(request, "index/detail.html", {"gender": gender, 'news': news})

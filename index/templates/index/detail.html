@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Super Engine</title>
+    <link rel="icon" type="image/png" href="../../static/index/images/logo_transparent.png"/>
+    <!-- Bootstrap CSS -->
+    <link href="../../static/index/styles/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../../static/index/styles/theme.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <main>
+    <nav class="navbar navbar-expand navbar-light sticky-top">
+        <a class="navbar-brand" href="{% url 'index:index' %}">
+            <img src="../../static/index/images/logo_transparent.png" width="40" height="40" alt="" loading="lazy">
+        </a>
+        <form action="{% url 'index:search_view' %}" method="get">
+            <input id="navbar-search-bar" name="keyword" placeholder="Search here: ">
+        </form>
+
+
+        <span id="navbar-user">
+            <a id="logout" href="{% url 'index:logout' %}">Log out</a>
+            {% if gender == "boy" %}
+                <a href="{% url 'index:index' %}">
+                    <img id='navbar-user-profile' src="../../static/index/images/boy.png">
+                </a>
+            {% else %}
+                <a href="{% url 'index:index' %}">
+                    <img id='navbar-user-profile' src="../../static/index/images/girl.png">
+                </a>
+            {% endif %}
+        </span>
+    </nav>
+    <div class="news-detail">
+        <p class="news-title">
+            {{ news.title }}
+        </p>
+        <p class="news-content">
+            {{ news.content }}
+        </p>
+    </div>
+    </main>
+
+    <footer>
+        <hr/>
+        <p>2020 © Victor | All rights reserved </p>
+    </footer>
+</body>
+
+</html>
